@@ -1,0 +1,42 @@
+.wrapper {
+  //position: fixed;
+  //top: 0;
+  //left: 0;
+  //bottom: 0;
+  overflow: hidden !important;
+  z-index: 2;
+  transition: all 0.5s ease;
+  padding: 16px;
+  background-color: transparent;
+
+  .header {
+    width: 153px;
+    height: 46px;
+    display: flex;
+  }
+
+  .menu {
+    position: relative;
+    height: calc(100% - 45px - 189px);
+    overflow: auto;
+  }
+
+  .menu::-webkit-scrollbar {
+    width: 3px;
+    transition: all 3s ease;
+  }
+
+  .menu::-webkit-scrollbar-thumb {
+    background: var(--Blue-1000);
+    border-radius: 10px;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 16px;
+    z-index: 9999;
+  }
+}

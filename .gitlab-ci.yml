@@ -1,0 +1,72 @@
+image: harbor.local:8443/base-images/docker:20.10.24
+#
+variables:
+  IMAGE_TAG: $HARBOR_REGISTRY/library/$CI_PROJECT_NAME:$CI_COMMIT_SHA
+  API_PORT: 8092
+  API_NAT_PORT: 80
+
+stages:
+  - build-staging
+  - staging
+  - build-production
+  - production
+
+build-staging:
+  stage: build-staging
+  before_script:
+    - echo $HARBOR_PASSWORD | docker login --firstName $HARBOR_USER --password-stdin $HARBOR_REGISTRY
+  script:
+    - docker build -f Dockerfile.dev --cache-from $CI_PROJECT_NAME:latest --tag $IMAGE_TAG . --build-arg API_NAT_PORT=$API_NAT_PORT
+    - docker push $IMAGE_TAG
+  only:
+    - dev
+
+staging-deploy:
+  stage: staging
+  before_script:
+    - envsubst < docker-compose.tmpl > docker-compose.yml
+    - eval `ssh-agent`
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - touch ~/.ssh/known_hosts
+    - chmod 600 ~/.ssh/known_hosts
+    - echo $SSH_HOST_KEY >> ~/.ssh/known_hosts
+    - echo "HOST *" > ~/.ssh/config
+    - echo "StrictHostKeyChecking no" >> ~/.ssh/config
+  script:
+    - ssh $STAGING_USER@$STAGING_SERVER mkdir $CI_PROJECT_NAME -p
+    - scp docker-compose.yml $STAGING_USER@$STAGING_SERVER:/home/runner/$CI_PROJECT_NAME/
+    - ssh $STAGING_USER@$STAGING_SERVER "cd /home/runner/$CI_PROJECT_NAME;echo $HARBOR_PASSWORD | docker login --firstName $HARBOR_USER --password-stdin $HARBOR_REGISTRY;docker compose up -d"
+  only:
+    - dev
+
+build-production:
+  stage: build-production
+  before_script:
+    - echo $HARBOR_PASSWORD | docker login --firstName $HARBOR_USER --password-stdin $HARBOR_REGISTRY
+  script:
+    - docker build -f Dockerfile.prod --cache-from $CI_PROJECT_NAME:latest --tag $IMAGE_TAG . --build-arg API_NAT_PORT=$API_NAT_PORT
+    - docker push $IMAGE_TAG
+  only:
+    - prod
+
+production-deploy:
+  stage: production
+  before_script:
+    - envsubst < docker-compose.tmpl > docker-compose.yml
+    - eval `ssh-agent`
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - touch ~/.ssh/known_hosts
+    - chmod 600 ~/.ssh/known_hosts
+    - echo $SSH_HOST_KEY >> ~/.ssh/known_hosts
+    - echo "HOST *" > ~/.ssh/config
+    - echo "StrictHostKeyChecking no" >> ~/.ssh/config
+  script:
+    - ssh $PRODUCTION_USER@$PRODUCTION_SERVER mkdir $CI_PROJECT_NAME -p
+    - scp docker-compose.yml $PRODUCTION_USER@$PRODUCTION_SERVER:/home/runner/$CI_PROJECT_NAME/
+    - ssh $PRODUCTION_USER@$PRODUCTION_SERVER "cd /home/runner/$CI_PROJECT_NAME;echo $HARBOR_PASSWORD | docker login --firstName $HARBOR_USER --password-stdin $HARBOR_REGISTRY;docker compose up -d"
+  only:
+    - prod

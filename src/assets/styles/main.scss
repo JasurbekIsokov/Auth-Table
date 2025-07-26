@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&display=swap');
+
+@mixin theme-light {
+  --dark-gray-20: #f8f9fa;
+  --dark-gray-30: #e9ecef;
+  --dark-gray-40: #dee2e6;
+  --dark-gray-50: #ced4da;
+  --dark-gray-60: #adb5bd;
+  --dark-gray-70: #6c757d;
+  --dark-gray-80: #495057;
+  --dark-gray-90: #343a40;
+  --dark-gray-100: #212529;
+  --dark-gray-white: #ffffff;
+
+  --main-blue: #126dda;
+  --main-dark-blue-0: #e0e0e0;
+  --main-black: #020105;
+  --main-green: #009a10;
+  --main-white: #ffffff;
+  --main-dark-blue: #03045e;
+  --main-red: #ff0000;
+  --main-orange: #ff9500;
+
+  --state-red: #ff0000;
+  --state-light-red: #ffe1e1;
+  --state-green: #009a10;
+  --state-light-green: #d2ffd7;
+  --state-orange: #ff9500;
+  --state-light-orange: #fffee1;
+  --state-blue: #126dda;
+  --state-light-blue: #e2eeff;
+  --state-cyan: #12dac2;
+  --state-violet: #be12da;
+
+  --background-gray: #fafafa;
+  --background-blue: #f6f9fe;
+  --background-light-blue: #f5f9ff;
+  --background--dark-blue: #e2edff;
+  --background-pink: #ffe2e2;
+  --background-light-green: #e6ffe2;
+
+  --button-blue: #3699ff;
+
+  // new
+
+  // black
+  --black-white-dark: #181818;
+  --black-white-stroke-2: #dcdeea;
+  --black-white-white-gray: #f8f9ff;
+  --black-white-stroke-1: #f0f0f9;
+
+  // red
+  --danger-red: #e62e2e;
+  --red-dark-dark-5: #d90000;
+
+  // blue
+  --Blue-Colors-blue: #3361ff;
+  --blue-light-light-5: #406bff;
+  --Blue-300: #c2d8f8;
+  --Blue-1000: #347de9;
+
+  // gray
+  --Gray-1000: #737687;
+  --Gray-800: #8f919f;
+  --Gray-900: #818493;
+  --Gray-600: #abadb7;
+}
+
+:root {
+  @include theme-light;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Golos Text', sans-serif;
+}

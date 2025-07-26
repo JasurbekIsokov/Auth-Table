@@ -1,0 +1,179 @@
+@mixin disabled($type, $color, $bg-color, $border) {
+  &.wrapper--type-#{$type} {
+    color: $color;
+    background-color: $bg-color;
+    border: $border;
+    cursor: not-allowed;
+  }
+}
+
+@mixin variant($type, $color, $border-color, $bg-color) {
+  &.wrapper--type-#{$type} {
+    color: $color;
+    border-color: $border-color;
+    background-color: $bg-color;
+  }
+}
+
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  user-select: none;
+  border: 1px solid transparent;
+  will-change: transform;
+  grid-gap: 12px;
+  white-space: nowrap;
+
+  font-family: 'Golos Text', sans-serif;
+
+  &--type {
+    &-primary {
+      background: var(--blue-light-light-5);
+      color: var(--main-white);
+    }
+
+    &-secondary {
+      background: transparent;
+      border: 1px solid var(--main-blue);
+      color: var(--main-blue);
+    }
+
+    &-text {
+      background: transparent;
+      color: var(--main-blue);
+    }
+
+    &-neutral {
+      background: var(--dark-gray-20);
+      border: 1px solid var(--dark-gray-30);
+      color: var(--main-blue);
+    }
+  }
+
+  &--size {
+    &-small {
+      padding: 11px 16px;
+
+      .title {
+        font-size: 14px;
+      }
+
+      &.wrapper--iconic {
+        padding: 14px;
+      }
+    }
+
+    &-medium {
+      padding: 13px 24px;
+
+      .title {
+        font-size: 16px;
+      }
+
+      &.wrapper--iconic {
+        padding: 16px;
+      }
+    }
+
+    &-large {
+      padding: 14px 24px;
+
+      .title {
+        font-size: 16px;
+      }
+
+      &.wrapper--iconic {
+        padding: 18px;
+      }
+    }
+  }
+
+  &--variant {
+    &-blue {
+      @include variant('primary', var(--main-white), var(--main-blue), var(--main-blue));
+      @include variant('secondary', var(--main-blue), var(--main-blue), null);
+      @include variant('text', var(--main-blue), null, null);
+      @include variant('neutral', var(--main-blue), null, null);
+    }
+
+    &-green {
+      @include variant('primary', var(--main-white), var(--main-green), var(--main-green));
+      @include variant('secondary', var(--main-green), var(--main-green), null);
+      @include variant('text', var(--main-green), null, null);
+      @include variant('neutral', var(--main-green), null, null);
+    }
+
+    &-orange {
+      @include variant('primary', var(--main-white), var(--main-orange), var(--main-orange));
+      @include variant('secondary', var(--main-orange), var(--main-orange), null);
+      @include variant('text', var(--main-orange), null, null);
+      @include variant('neutral', var(--main-orange), null, null);
+    }
+
+    &-red {
+      @include variant('primary', var(--main-white), var(--main-red), var(--main-red));
+      @include variant('secondary', var(--main-red), var(--main-red), null);
+      @include variant('text', var(--main-red), null, null);
+      @include variant('neutral', var(--main-red), null, null);
+    }
+
+    &-darkBlue {
+      @include variant('primary', var(--main-white), var(--main-dark-blue), var(--main-dark-blue));
+      @include variant('secondary', var(--main-dark-blue), var(--main-dark-blue), null);
+      @include variant('text', var(--main-dark-blue), nul, null);
+      @include variant('neutral', var(--main-dark-blue), nul, null);
+    }
+
+    &-black {
+      @include variant('primary', var(--main-white), var(--dark-gray-100), var(--dark-gray-100));
+      @include variant('secondary', var(--dark-gray-100), var(--dark-gray-100), null);
+      @include variant('text', var(--dark-gray-100), nul, null);
+      @include variant('neutral', var(--dark-gray-100), nul, null);
+    }
+  }
+
+  &--disabled {
+    @include disabled('primary', var(--dark-gray-60), var(--dark-gray-10), 1px solid var(--dark-gray-50));
+    @include disabled('secondary', var(--dark-gray-50), null, 1px solid var(--dark-gray-50));
+    @include disabled('text', var(--dark-gray-50), 0, null);
+    @include disabled('neutral', var(--dark-gray-50), null, 1px solid var(--dark-gray-30));
+
+    .icon {
+      color: var(--dark-gray-50);
+    }
+  }
+
+  &--block {
+    width: 100%;
+  }
+
+  &:not(.wrapper--disabled) {
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    &:active {
+      transform: scale(0.9995);
+    }
+  }
+}
+
+.title {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+}
+
+.icon {
+  width: 24px;
+  max-width: 24px;
+  min-width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+}

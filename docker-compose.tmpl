@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  cabinet-repo:
+    container_name: $CI_PROJECT_NAME
+    hostname: $CI_PROJECT_NAME
+    image: $IMAGE_TAG
+    ports:
+      - $API_PORT:$API_NAT_PORT
+    restart: "unless-stopped"
+    networks:
+      - apps-network
+networks:
+  apps-network:
+    external: true

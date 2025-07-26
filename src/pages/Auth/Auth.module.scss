@@ -1,0 +1,41 @@
+.wrapper {
+  width: 100%;
+  height: 100vh;
+
+  &Left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+
+    .main {
+      width: 100%;
+      max-width: 448px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+
+      &Title {
+        color: var(--black-white-dark);
+        text-align: center;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 130%;
+      }
+
+      &Inner {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+    }
+  }
+}

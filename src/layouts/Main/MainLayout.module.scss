@@ -1,0 +1,18 @@
+.wrapper {
+  display: flex;
+  height: 100vh;
+  position: relative;
+  background: var(--black-white-white-gray);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  overflow: hidden;
+
+  &Inner {
+    height: calc(100% - 96px);
+    overflow: auto;
+  }
+}

@@ -1,0 +1,14 @@
+.wrapper {
+  display: block;
+  width: var(--spacer-size);
+  min-width: var(--spacer-size);
+  height: var(--spacer-size);
+  min-height: var(--spacer-size);
+
+  @media (max-width: 576px) {
+    width: var(--spacer-sm-size);
+    min-width: var(--spacer-sm-size);
+    height: var(--spacer-sm-size);
+    min-height: var(--spacer-sm-size);
+  }
+}

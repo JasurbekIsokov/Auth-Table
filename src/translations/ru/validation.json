@@ -1,0 +1,6 @@
+{
+  "email_is_exists": "Электронная почта уже существует",
+  "tax_number_or_pinfl_already_exists": "ИНН или ПИНФЛ уже существует",
+  "old_password_is_incorrect": "Старый пароль неверен",
+  "account_not_found": "Аккаунт не найден"
+}
