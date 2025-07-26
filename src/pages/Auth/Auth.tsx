@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import * as AuthModules from '@/modules/auth';
 
@@ -9,9 +9,19 @@ import Button from '@/components/Button';
 import { IconHOC } from '@/components/Icon';
 
 import classes from './Auth.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 const Auth = () => {
+  const navigate = useNavigate();
   const [isHide, setIsHide] = useState(false);
+
+  const token = localStorage.getItem('accessToken');
+
+  useEffect(() => {
+    if (token && token.length > 3) {
+      navigate('/');
+    }
+  }, [token]);
 
   return (
     <div className={classes.wrapper}>

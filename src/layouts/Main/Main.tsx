@@ -18,9 +18,10 @@ const Main: React.FC = () => {
   const { state } = AuthModule.Context.useContext();
 
   const navigate = useNavigate();
+  const token = localStorage.getItem('accessToken');
 
   useEffect(() => {
-    if (!state.isAuthenticated) {
+    if (!state.isAuthenticated || !token || token.length < 3) {
       navigate('/auth');
     }
   }, [state.isAuthenticated]);
